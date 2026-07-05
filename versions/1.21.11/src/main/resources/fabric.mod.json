@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "id": "flower-ui",
+  "version": "${version}",
+
+  "name": "FlowerUI",
+  "description": "A dynamic Minecraft UI library. Include it in your mod to build custom screens with no Minecraft imports.",
+  "authors": ["sage"],
+  "contact": {
+    "sources": "https://github.com/yourname/FlowerUI"
+  },
+
+  "license": "MIT",
+  "icon": "assets/flowerui/icon.png",
+
+  "environment": "client",
+  "entrypoints": {
+    "client":   ["me.starletboh.flowerui.fabric.FlowerUIFabric"]
+
+  },
+  "mixins": [],
+
+  "depends": {
+    "fabricloader":           ">=0.19.2",
+    "minecraft":              "~1.21.11",
+    "java":                   ">=21",
+    "fabric-api":             "*",
+    "fabric-language-kotlin": "*"
+  }
+}
