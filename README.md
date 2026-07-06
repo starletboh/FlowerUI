@@ -121,13 +121,13 @@ Launch the interface via: `FlowerUI.open(ExampleScreen())`
 
 ## Documentation & Support
 
-For comprehensive guides, API references, and advanced implementation details, consult the [GitHub Wiki](https://www.google.com/search?q=https://github.com/starletboh/FlowerUI/wiki).
+For comprehensive guides, API references, and advanced implementation details, consult the [GitHub Wiki](https://github.com/starletboh/FlowerUI/wiki).
 
 ---
 
 ## License
 
-This project is licensed under the **GNU General Public License v3.0**. See the [LICENSE](https://www.google.com/search?q=LICENSE) file for further information.
+This project is licensed under the **GNU General Public License v3.0**. See the [LICENSE](https://www.gnu.org/licenses/gpl-3.0.txt) file for further information.
 
 ---
 
