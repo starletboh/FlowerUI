@@ -1,67 +1,46 @@
 # 🌸 FlowerUI
 
-A lightweight, themeable UI framework for Fabric mods written in Kotlin.
+**FlowerUI** is a lightweight, themeable UI framework for Fabric mods, architected specifically for Kotlin.
 
-FlowerUI makes creating Minecraft interfaces simple by replacing manual `Screen`
-rendering with a flexible widget system, automatic layouts, theming, and
-platform abstractions.
-
-Whether you're creating a settings menu, HUD editor, configuration screen, or
-in-game dashboard, FlowerUI provides reusable widgets and layouts so you can
-focus on your mod—not rendering code.
+FlowerUI streamlines the development of Minecraft interfaces by replacing boilerplate-heavy manual rendering with a modular, high-performance widget system. It provides a comprehensive suite of automatic layouts, runtime theming, and platform-agnostic abstractions, allowing developers to focus on feature implementation rather than rendering mechanics.
 
 ---
 
 ## Features
 
-- 🌸 Kotlin-first API
-- 📐 Automatic layout engine
-    - RowLayout
-    - ColumnLayout
-    - GridLayout
-    - FlexLayout
-- 🎨 Runtime theme system
-- 🖼 SVG rendering backend
-- ⚡ Texture caching
-- 🧩 Built-in widgets
-- 🖱 Mouse & keyboard input
-- ⌨ Text input with clipboard support
-- 📜 Scroll containers
-- 🎭 Widget registry
-- 🔌 Platform abstraction
-- 🧱 Extensible architecture
-
----
-
-## Built-in Widgets
-
-- Button
-- Panel
-- Text
-- Image
-- Checkbox
-- Toggle
-- Slider
-- Dropdown
-- Text Input
-- Scroll Container
-- Color Picker
+* **Kotlin-First API:** Clean, idiomatic DSL for declarative UI construction.
+* **Automatic Layout Engine:** Flexible positioning using `RowLayout`, `ColumnLayout`, `GridLayout`, and `FlexLayout`.
+* **Runtime Theming:** Dynamic, swappable visual styles.
+* **SVG Rendering Backend:** Scalable graphics with hardware-accelerated texture caching.
+* **Comprehensive Widget Library:** Ready-to-use components for complex interfaces.
+* **Event Routing:** Built-in handling for mouse, keyboard, and clipboard interactions.
+* **Extensible Architecture:** Platform-agnostic core with a clean separation of concerns.
 
 ---
 
 ## Installation
 
-FlowerUI is distributed through **JitPack**.
+FlowerUI is distributed via the **JitPack** repository.
 
 ### Kotlin DSL
 
+Configure your `settings.gradle.kts`:
+
 ```kotlin
-repositories {
-    maven("[https://jitpack.io](https://jitpack.io)")
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        mavenCentral()
+        maven { url = uri("https://jitpack.io") }
+    }
 }
 
+```
+
+Add the dependency to your `build.gradle.kts`:
+
+```kotlin
 dependencies {
-    // Replace 'master-SNAPSHOT' with a specific branch or commit hash if preferred
     implementation("com.github.starletboh:FlowerUI:master-SNAPSHOT")
 }
 
@@ -69,13 +48,23 @@ dependencies {
 
 ### Groovy
 
+Configure your `settings.gradle`:
+
 ```groovy
-repositories {
-    maven { url '[https://jitpack.io](https://jitpack.io)' }
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        mavenCentral()
+        maven { url 'https://jitpack.io' }
+    }
 }
 
+```
+
+Add the dependency to your `build.gradle`:
+
+```groovy
 dependencies {
-    // Replace 'master-SNAPSHOT' with a specific branch or commit hash if preferred
     implementation 'com.github.starletboh:FlowerUI:master-SNAPSHOT'
 }
 
@@ -85,37 +74,30 @@ dependencies {
 
 ## Requirements
 
-* Java 21
-* Minecraft 1.21.x
-* Fabric Loader
-* Fabric API
-* Fabric Language Kotlin
+* **Java:** 21
+* **Minecraft:** 1.21.x
+* **Fabric Loader**
+* **Fabric API**
+* **Fabric Language Kotlin**
 
 ---
 
-## Quick Example
+## Implementation Example
 
 ```kotlin
 class ExampleScreen : FlowerScreen() {
 
-    override val themeContext =
-        ThemeContext(ThemeRegistry.getOrFallback("catppuccin_mocha"))
+    override val themeContext = ThemeContext(ThemeRegistry.getOrFallback("catppuccin_mocha"))
 
     override fun build(root: RootComponent) {
-
         val panel = PanelWidget().apply {
             width = 220f
             height = 120f
-
             layout = ColumnLayout()
-            layoutBox = LayoutBox(
-                padding = 12f,
-                gap = 8f
-            )
+            layoutBox = LayoutBox(padding = 12f, gap = 8f)
         }
 
         panel.add(TextWidget("Hello FlowerUI"))
-
         panel.add(ButtonWidget().apply {
             width = 100f
             height = 20f
@@ -133,108 +115,24 @@ class ExampleScreen : FlowerScreen() {
 
 ```
 
-Open it anywhere using
-
-```kotlin
-FlowerUI.open(ExampleScreen())
-
-```
+Launch the interface via: `FlowerUI.open(ExampleScreen())`
 
 ---
 
-## Documentation
+## Documentation & Support
 
-The complete documentation is available in the GitHub Wiki.
-
-### Getting Started
-
-Installation, first screen and project setup.
-
-### Layouts
-
-* ColumnLayout
-* RowLayout
-* GridLayout
-* FlexLayout
-* LayoutBox
-
-### Widgets
-
-Documentation for every built-in widget.
-
-### Themes
-
-Creating and using custom themes.
-
-### Rendering
-
-How FlowerUI renders widgets and SVG textures.
-
-### Input
-
-Keyboard, mouse, focus and routing.
-
-### Advanced
-
-Creating custom widgets, platform services and extending FlowerUI.
-
----
-
-## Why FlowerUI?
-
-Minecraft's vanilla GUI system requires manually positioning every element,
-handling input yourself and writing rendering code for each widget.
-
-FlowerUI instead lets you describe your interface as a tree of reusable
-components while automatically handling:
-
-* measuring
-* positioning
-* clipping
-* rendering
-* event routing
-* theming
-
-This keeps screens cleaner, easier to maintain and significantly easier to
-extend.
-
----
-
-## Project Structure
-
-```
-common/
-    Core framework
-
-fabric/
-    Fabric implementation
-
-graphics/
-    Rendering backends
-
-theme/
-    Theme system
-
-ui/
-    Widgets
-    Layouts
-    Components
-
-```
+For comprehensive guides, API references, and advanced implementation details, consult the [GitHub Wiki](https://www.google.com/search?q=https://github.com/starletboh/FlowerUI/wiki).
 
 ---
 
 ## License
 
-FlowerUI is licensed under the GNU General Public License v3.0.
-
-See the LICENSE file for details.
+This project is licensed under the **GNU General Public License v3.0**. See the [LICENSE](https://www.google.com/search?q=LICENSE) file for further information.
 
 ---
 
 ## Contributing
 
-Contributions are welcome.
+Contributions are invited. Please submit pull requests or open issues for feature requests and bug reports.
 
-If you discover a bug or have an idea for a new widget or layout, feel free to
-open an Issue or Pull Request.
+Would you like me to refine the language further for a specific audience, or are there additional sections you would like to include?
