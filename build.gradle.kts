@@ -4,7 +4,7 @@ plugins {
 }
 
 allprojects {
-    group = "me.starlet.flowerui"
+    group = "me.starletboh.flowerui"
     version = "1.0.0"
 
     repositories {
