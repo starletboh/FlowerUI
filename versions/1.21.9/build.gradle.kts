@@ -1,9 +1,10 @@
 plugins {
-    id("net.fabricmc.fabric-loom-remap")
+    id("net.fabricmc.fabric-loom-remap") version "1.17-SNAPSHOT"
     id("maven-publish")
     kotlin("jvm")
     id("com.gradleup.shadow") version "8.3.0"
 }
+val shadowImpl by configurations.creating
 
 tasks.processResources {
     inputs.property("version", project.version)
@@ -22,23 +23,22 @@ dependencies {
 
     implementation(project(":common"))
 
-    // Jackson (jackson 3.x groupId changed to tools.jackson)
+
     val jackson = "3.1.3"
-    implementation("tools.jackson.core:jackson-databind:$jackson")
-    include("tools.jackson.core:jackson-databind:$jackson")
-    implementation("tools.jackson.core:jackson-core:${jackson}")
-    include("tools.jackson.core:jackson-core:${jackson}")
-    // Source: https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-annotations
-//    implementation("com.fasterxml.jackson.core:jackson-annotations:3.0-rc5")
-//    implementation("com.fasterxml.jackson.core:jackson-annotations:2.18.2")
-    implementation("com.fasterxml.jackson.core:jackson-annotations:2.22")
-    include("com.fasterxml.jackson.core:jackson-annotations:2.22")
-//    include("com.fasterxml.jackson.core:jackson-annotations:2.18.2")
-//    include("com.fasterxml.jackson.core:jackson-annotations:3.0-rc5")
-    implementation("com.formdev:svgSalamander:1.1.4")
-    include("com.formdev:svgSalamander:1.1.4")
-//    implementation("org.apache-extras.beanshell:bsh:2.0b6")
-//    include("org.apache-extras.beanshell:bsh:2.0b6")
+    modImplementation("tools.jackson.core:jackson-databind:$jackson")
+
+
+    shadowImpl("tools.jackson.core:jackson-databind:$jackson")
+    modImplementation("tools.jackson.core:jackson-core:$jackson")
+
+    shadowImpl("tools.jackson.core:jackson-core:$jackson")
+    modImplementation("com.fasterxml.jackson.core:jackson-annotations:2.15.2")
+
+    shadowImpl("com.fasterxml.jackson.core:jackson-annotations:2.15.2")
+
+    modImplementation("com.formdev:svgSalamander:1.1.4")
+
+    shadowImpl("com.formdev:svgSalamander:1.1.4")
 
 
 }
@@ -49,15 +49,11 @@ tasks.jar {
 
 tasks.shadowJar {
     archiveClassifier.set("dev-shadow")
-    configurations = emptyList()
-    dependencies {
-        include(project(":common"))
-        include(dependency("tools.jackson.core:jackson-databind"))
-        include(dependency("tools.jackson.core:jackson-core"))        // ADD THIS
-        include(dependency("com.fasterxml.jackson.core:jackson-annotations")) // ADD THIS
-        include(dependency("com.formdev:svgSalamander"))
 
-    }
+
+    configurations = listOf(shadowImpl)
+
+
     from(project(":common").sourceSets.main.get().output)
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }

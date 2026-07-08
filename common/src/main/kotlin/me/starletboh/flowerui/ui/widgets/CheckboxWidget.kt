@@ -6,10 +6,7 @@ import me.starletboh.flowerui.graphics.svg.SvgTextureManager
 import me.starletboh.flowerui.graphics.svg.generator.SvgBuilder
 import me.starletboh.flowerui.ui.render.RenderContext
 
-/**
- * A simple checkbox / toggle. Renders as a small rounded square that fills
- * with an accent color when [checked].
- */
+
 class CheckboxWidget : Widget() {
 
     var checked: Boolean = false
@@ -54,9 +51,9 @@ class CheckboxWidget : Widget() {
         }
 
         if (checked) {
-            // simple check mark using a couple of thin rects, drawn in
-            // absolute (already-clipped) coordinates like the rest of the
-            // widget set.
+
+
+
             val thickness = (width * 0.14f).coerceAtLeast(1f)
             ctx.scope.drawOutline(
                 globalX() + width * 0.2f,

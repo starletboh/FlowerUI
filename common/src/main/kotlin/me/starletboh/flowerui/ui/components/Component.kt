@@ -18,13 +18,7 @@ abstract class Component {
     var width: Float = 0f
     var height: Float = 0f
 
-    /**
-     * When true, children are clipped to this component's bounds before
-     * being rendered - so content from a Row/Column/Grid layout that
-     * overflows the parent's box (e.g. too many buttons in a fixed-width
-     * panel) gets visually cut off at the edge instead of spilling out
-     * over whatever is behind it.
-     */
+    
     var clipChildren: Boolean = false
 
     fun add(child: Component) {
@@ -40,7 +34,7 @@ abstract class Component {
     fun globalX(): Float = parent?.globalX()?.plus(x) ?: x
     fun globalY(): Float = parent?.globalY()?.plus(y) ?: y
 
-    /** Walks up the parent chain to find the RootComponent, if this component is attached to one. */
+    
     fun findRoot(): RootComponent? {
         var c: Component? = this
         while (c != null) {
@@ -58,25 +52,21 @@ abstract class Component {
                 py >= gy && py <= gy + height
     }
 
-    /**
-     * NEW: context-based rendering (required for framework design)
-     */
+    
     abstract fun render(ctx: RenderContext)
 
-    /**
-     * Recursive helper for UI tree rendering
-     */
+    
     fun dispatchEvent(event: InputEvent): Boolean {
 
-        // children FIRST (top-down hit priority)
+
         for (child in children.asReversed()) {
             if (child.dispatchEvent(event)) return true
         }
 
-        // only if no child consumed it
+
         return onEvent(event)
     }
-    // Inside Component.kt
+
     open fun renderChildren(ctx: RenderContext) {
         if (clipChildren) {
             ctx.scope.pushClip(globalX(), globalY(), width, height)
@@ -103,12 +93,12 @@ abstract class Component {
     }
     open fun applyLayout() {
 
-        // BOTTOM-UP: resolve every child's own size/position first. This
-        // matters because a container that wraps its content (width/height
-        // left at 0, meaning "size me to my children") can only measure
-        // itself correctly once its children's *final* sizes are known -
-        // which for a child that is itself a container means recursing all
-        // the way down first.
+
+
+
+
+
+
         children.forEach { it.applyLayout() }
 
         val l = layout ?: return

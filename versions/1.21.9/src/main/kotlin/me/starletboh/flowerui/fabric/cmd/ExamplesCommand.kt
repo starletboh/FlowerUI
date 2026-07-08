@@ -14,7 +14,7 @@ object ExamplesCommand {
         dispatcher.register(
             ClientCommandManager.literal("flowerui:example")
                 .executes { context ->
-                    // TODO
+
 
                         FlowerUI.open(ExampleScreen())
                     1

@@ -6,7 +6,7 @@ import me.starletboh.flowerui.graphics.svg.SvgTextureManager
 import me.starletboh.flowerui.graphics.svg.generator.SvgBuilder
 import me.starletboh.flowerui.ui.render.RenderContext
 
-/** An on/off switch, rendered as a rounded pill track with a sliding circular knob. */
+
 class ToggleWidget : Widget() {
 
     var value: Boolean = false
@@ -63,7 +63,7 @@ class ToggleWidget : Widget() {
         val knobY = globalY() + height / 2f - knobRadius
         knobTexture?.let { ctx.scope.drawTexture(it, knobX, knobY, knobSize, knobSize, 1f) }
 
-//        ctx.scope.drawOutline(globalX(), globalY(), width, height, ctx.theme.colors.border, 1f)
+
 
         renderChildren(ctx)
     }

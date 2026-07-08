@@ -10,10 +10,10 @@ class PanelWidget : Widget() {
     var radius: Int = 8
 
     init {
-        // Panels are the most common container - clip their contents by
-        // default so a RowLayout/GridLayout with more children than fit
-        // doesn't render past the panel's edges. Set clipChildren = false
-        // on an instance to opt back out.
+
+
+
+
         clipChildren = true
     }
 

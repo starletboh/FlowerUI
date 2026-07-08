@@ -50,9 +50,9 @@ class TextInputWidget : Widget() {
     private val isFocused: Boolean
         get() = InputRouter.currentFocus === this
 
-    // ----------------------------
-    // Selection helpers
-    // ----------------------------
+
+
+
 
     private fun hasSelection() = caret != anchor
     private fun selectionStart() = minOf(caret, anchor)
@@ -63,9 +63,9 @@ class TextInputWidget : Widget() {
         anchor = anchor.coerceIn(0, text.length)
     }
 
-    // ----------------------------
-    // Rendering
-    // ----------------------------
+
+
+
 
     override fun render(ctx: RenderContext) {
 
@@ -105,9 +105,9 @@ class TextInputWidget : Widget() {
 
         val safeCaret = caret.coerceIn(0, text.length)
 
-        // ----------------------------
-        // Selection highlight
-        // ----------------------------
+
+
+
 
         if (focused && hasSelection()) {
             val start = selectionStart()
@@ -125,9 +125,9 @@ class TextInputWidget : Widget() {
             )
         }
 
-        // ----------------------------
-        // Text / placeholder
-        // ----------------------------
+
+
+
 
         if (text.isEmpty()) {
             if (!focused && placeholder.isNotEmpty()) {
@@ -149,9 +149,9 @@ class TextInputWidget : Widget() {
             )
         }
 
-        // ----------------------------
-        // Caret blink
-        // ----------------------------
+
+
+
 
         if (focused && (ctx.time / 500L) % 2L == 0L) {
             val cx = globalX() + padding +
@@ -169,9 +169,9 @@ class TextInputWidget : Widget() {
         renderChildren(ctx)
     }
 
-    // ----------------------------
-    // INPUT
-    // ----------------------------
+
+
+
 
 
     private fun isShift(mod: Int): Boolean =
@@ -266,9 +266,9 @@ class TextInputWidget : Widget() {
         return false
     }
 
-    // ----------------------------
-    // TEXT OPS
-    // ----------------------------
+
+
+
 
     private fun insert(char: Char) {
         if (char.isISOControl()) return
@@ -319,9 +319,9 @@ class TextInputWidget : Widget() {
         text = text.substring(0, caret) + text.substring(caret + 1)
     }
 
-    // ----------------------------
-    // CLIPBOARD
-    // ----------------------------
+
+
+
 
     private fun copy() {
         if (!hasSelection()) return

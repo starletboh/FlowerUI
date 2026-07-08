@@ -11,40 +11,40 @@ import org.joml.Matrix3x2fStack
 class FabricRenderScope(
     private val ctx: DrawContext
 ) : RenderScope {
-    // always synced from Minecraft context
+
     private val matrix: Matrix3x2fStack
         get() = ctx.matrices
 
-    override fun push() { ctx.matrices.pushMatrix()}
+    override fun push() { matrix.pushMatrix()}
 
-    override fun pop() { ctx.matrices.popMatrix()}
+    override fun pop() { matrix.popMatrix()}
     override fun getScreenWidth(): Float =
         MinecraftClient.getInstance().window.scaledWidth.toFloat()
 
     override fun getScreenHeight(): Float =
         MinecraftClient.getInstance().window.scaledHeight.toFloat()
     override fun translate(x: Float, y: Float) {
-        ctx.matrices.translate(x, y)
+        matrix.translate(x, y)
     }
 
     override fun scale(x: Float, y: Float) {
-        ctx.matrices.scale(x, y)
+        matrix.scale(x, y)
     }
 
     override fun rotate(degrees: Float) {
-        ctx.matrices.rotate(degrees)
+        matrix.rotate(degrees)
     }
 
     override fun pushClip(x: Float, y: Float, width: Float, height: Float) {
-        // DrawContext.enableScissor pushes onto its own internal
-        // ScissorStack, which already intersects with whatever scissor is
-        // currently active (see ScissorStack.push in DrawContext) - so we
-        // don't need to track or intersect rects ourselves here at all.
-        // Every render state element (text, quads, textures, ...) also
-        // captures scissorStack.peekLast() at the moment it's submitted,
-        // baked into the element itself - so unlike a typical immediate-
-        // mode scissor, popping/pushing later can't retroactively affect
-        // something already submitted. No manual flush is needed either.
+
+
+
+
+
+
+
+
+
         ctx.enableScissor(
             x.toInt(),
             y.toInt(),
@@ -100,10 +100,10 @@ class FabricRenderScope(
         val xf = (x + width).toInt()
         val yf = (y + height).toInt()
 
-        ctx.fill(xi, yi, xf, yi + t, color)          // top
-        ctx.fill(xi, yf - t, xf, yf, color)          // bottom
-        ctx.fill(xi, yi, xi + t, yf, color)          // left
-        ctx.fill(xf - t, yi, xf, yf, color)          // right
+        ctx.fill(xi, yi, xf, yi + t, color)
+        ctx.fill(xi, yf - t, xf, yf, color)
+        ctx.fill(xi, yi, xi + t, yf, color)
+        ctx.fill(xf - t, yi, xf, yf, color)
     }
 
     override fun drawText(

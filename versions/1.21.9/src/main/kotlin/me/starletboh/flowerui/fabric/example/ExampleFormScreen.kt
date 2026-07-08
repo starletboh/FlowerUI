@@ -38,9 +38,9 @@ class ExampleFormScreen : FlowerScreen() {
             scale = 0.5f
         })
 
-        // -------------------------
-        // SCROLL AREA (IMPORTANT FIX)
-        // -------------------------
+
+
+
         scroll = ScrollContainer().apply {
             width = panel.width - 24f
             height = 170f
@@ -48,9 +48,9 @@ class ExampleFormScreen : FlowerScreen() {
             layoutBox = LayoutBox(gap = 6f, padding = 6f, alignX = Align.START)
         }
 
-        // -------------------------
-        // ROW HELPERS
-        // -------------------------
+
+
+
         fun settingRow(label: String, initial: Boolean): PanelWidget {
             val row = PanelWidget().apply {
                 width = scroll.width - 12f
@@ -124,10 +124,10 @@ class ExampleFormScreen : FlowerScreen() {
 
             row.add(TextWidget(label))
 
-            // NOTE: the dropdown's own open item list renders via the Overlay
-            // system (see RootComponent/Overlay), so it draws on top of and
-            // stays clickable over the ScrollContainer/panel it sits inside,
-            // instead of being clipped or unclickable.
+
+
+
+
             row.add(DropdownWidget<String>().apply {
                 width = row.width
                 height = 16f
@@ -140,9 +140,9 @@ class ExampleFormScreen : FlowerScreen() {
             return row
         }
 
-        // -------------------------
-        // ADD EVERYTHING TO SCROLL
-        // -------------------------
+
+
+
         scroll.add(settingRow("Enable animations", true))
         scroll.add(settingRow("Show tooltips", false))
         scroll.add(settingRow("Compact mode", false))
@@ -150,7 +150,7 @@ class ExampleFormScreen : FlowerScreen() {
         scroll.add(sliderRow("Example Slider", 11f, 1f, 12f))
         scroll.add(dropdownRow("Example Dropdown", listOf("Option A", "Option B", "Option C")))
 
-        // IMPORTANT: scroll goes inside panel
+
         panel.add(scroll)
 
         root.add(panel)

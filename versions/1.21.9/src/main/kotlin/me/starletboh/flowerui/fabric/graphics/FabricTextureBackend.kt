@@ -10,12 +10,17 @@ import java.awt.image.BufferedImage
 class FabricTextureBackend : TextureBackend {
 
     override fun registerTexture(id: String, image: BufferedImage): Identifier {
-
         val nativeImage = convert(image)
-
         val texture = NativeImageBackedTexture(id::toString, nativeImage)
 
-        val identifier = Identifier.of("flowerui", id)
+
+        val identifier = if (id.contains(":")) {
+            val parts = id.split(":", limit = 2)
+            Identifier.of(parts[0].lowercase(), parts[1].lowercase())
+        } else {
+
+            Identifier.of("flowerui", id.lowercase())
+        }
 
         MinecraftClient.getInstance()
             .textureManager
@@ -25,12 +30,10 @@ class FabricTextureBackend : TextureBackend {
     }
 
     private fun convert(image: BufferedImage): NativeImage {
-
         val native = NativeImage(image.width, image.height, false)
 
         for (x in 0 until image.width) {
             for (y in 0 until image.height) {
-
                 val argb = image.getRGB(x, y)
 
                 val a = (argb shr 24) and 0xFF

@@ -35,7 +35,7 @@ object FlowerUIFabricImpl : FlowerUIPlatform {
 
         registerPatches()
 
-        FlowerUI.init(this) // 👈 THIS IS IMPORTANT
+        FlowerUI.init(this)
         PlatformServices.clipboard = MinecraftClipboard()
         ModCommands.register()
         ClientTickEvents.END_CLIENT_TICK.register {

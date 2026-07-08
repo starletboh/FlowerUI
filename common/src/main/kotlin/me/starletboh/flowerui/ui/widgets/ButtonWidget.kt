@@ -20,8 +20,8 @@ class ButtonWidget : Widget() {
     var hoverColor: Int? = null
     var pressedColor: Int? = null
     var textColor: Int? = null
-    var iconTexture: Any? = null        // 👈 NEW
-    var iconSize: Float = 16f           // optional
+    var iconTexture: Any? = null
+    var iconSize: Float = 16f
     var onClick: (() -> Unit)? = null
 
     private var hovered = false
@@ -57,15 +57,15 @@ class ButtonWidget : Widget() {
 
         val hash = raw.hashCode().toUInt().toString(16)
 
-        // IMPORTANT: ONLY safe characters for Minecraft Identifier path
+
         return "flowerui/ui_$hash"
     }
     override fun render(ctx: RenderContext) {
 
-        // ALWAYS update hover every frame (not just events)
-//        val mx = ctx.mouseX / ctx.scale
-//        val my = ctx.mouseY / ctx.scale
-//        hovered = contains(mx, my)
+
+
+
+
         val mx = ctx.mouseX
         val my = ctx.mouseY
         hovered = contains(mx, my)
@@ -95,8 +95,8 @@ class ButtonWidget : Widget() {
                 alpha = 1f
             )
         }
-        // ICON (overlay texture)
-        // ICON (overlay texture)
+
+
         iconTexture?.let { tex ->
 
             val hasText = text.isNotEmpty()
@@ -104,10 +104,10 @@ class ButtonWidget : Widget() {
             val iconY = globalY() + (height - iconSize) / 2f
 
             val iconX = if (!hasText) {
-                // center icon only
+
                 globalX() + (width - iconSize) / 2f
             } else {
-                // icon + text layout (left of text)
+
                 val textWidth = ctx.scope.measureTextWidth(text)
                 val totalWidth = iconSize + 4f + textWidth
 

@@ -17,36 +17,28 @@ abstract class FlowerScreen {
         rerender()
     }
 
-//    private val themeListener: (ThemeDefinition) -> Unit = {
-//        rerender()
-//    }
+
+
+
 
     init {
         UIInvalidation.register(invalidateCallback)
 
 
 
-//        ThemeManager.addListener(themeListener)
+
     }
 
-    /**
-     * Build UI tree here
-     */
+    
     abstract fun build(root: RootComponent)
 
-    /**
-     * Render screen
-     */
+    
     abstract fun render(ctx: RenderContext)
 
-    /**
-     * Request redraw from host (Fabric screen)
-     */
+    
     abstract fun rerender()
 
-    /**
-     * Called once before first render
-     */
+    
     open fun init() {
         if (!built) {
             build(root)

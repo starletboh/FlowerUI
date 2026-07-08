@@ -10,13 +10,13 @@ object InputRouter {
     private var focused: Component? = null
     private var hovered: Component? = null
 
-    /** The component that currently has input focus (last clicked hit target), or null. */
+    
     val currentFocus: Component?
         get() = focused
 
-    // ------------------------------------------------------------
-    // REGISTRATION
-    // ------------------------------------------------------------
+
+
+
 
     fun register(component: Component) {
         if (!roots.contains(component)) {
@@ -31,9 +31,9 @@ object InputRouter {
         if (hovered == component) hovered = null
     }
 
-    // ------------------------------------------------------------
-    // MAIN ENTRY
-    // ------------------------------------------------------------
+
+
+
 
     fun handle(event: InputEvent) {
 
@@ -52,30 +52,30 @@ object InputRouter {
         }
     }
 
-    // ------------------------------------------------------------
-    // MOUSE CLICK
-    // ------------------------------------------------------------
+
+
+
 
     private fun handleClick(event: MouseEvent.Click) {
 
         val target = hitTest(event.x, event.y)
 
-        // Clicking empty space (nothing hit) should still drop focus from
-        // whatever was previously focused (e.g. a text input), otherwise
-        // it stays visually focused/blinking forever.
+
+
+
         focused = target
 
         if (target == null) return
 
-        // bubble DOWN to target
+
         if (target.dispatchEvent(event)) {
             event.consume()
         }
     }
 
-    // ------------------------------------------------------------
-    // MOUSE RELEASE
-    // ------------------------------------------------------------
+
+
+
 
     private fun handleRelease(event: MouseEvent.Release) {
 
@@ -86,9 +86,9 @@ object InputRouter {
         }
     }
 
-    // ------------------------------------------------------------
-    // MOUSE MOVE (HOVER SYSTEM)
-    // ------------------------------------------------------------
+
+
+
 
     private fun handleMove(event: MouseEvent.Move) {
 
@@ -96,7 +96,7 @@ object InputRouter {
 
         if (newHovered != hovered) {
 
-            // optional: exit event
+
             hovered?.onEvent(event)
 
             hovered = newHovered
@@ -105,9 +105,9 @@ object InputRouter {
         hovered?.onEvent(event)
     }
 
-    // ------------------------------------------------------------
-    // SCROLL
-    // ------------------------------------------------------------
+
+
+
 
     private fun handleScroll(event: MouseEvent.Scroll) {
 
@@ -119,9 +119,9 @@ object InputRouter {
             }
     }
 
-    // ------------------------------------------------------------
-    // KEYBOARD
-    // ------------------------------------------------------------
+
+
+
 
     private fun handleKey(event: InputEvent) {
 
@@ -132,9 +132,9 @@ object InputRouter {
         }
     }
 
-    // ------------------------------------------------------------
-    // HIT TEST (FIXED - IMPORTANT PART)
-    // ------------------------------------------------------------
+
+
+
 
     private fun hitTest(x: Double, y: Double): Component? {
 

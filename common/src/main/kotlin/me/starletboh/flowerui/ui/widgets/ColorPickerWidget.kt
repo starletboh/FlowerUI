@@ -8,16 +8,7 @@ import me.starletboh.flowerui.ui.render.RenderContext
 import kotlin.math.max
 import kotlin.math.roundToInt
 
-/**
- * A full color picker: saturation/value square + hue strip + alpha slider +
- * preview swatch, plus a row of quick-pick palette swatches underneath.
- *
- * Reads/writes ARGB ints via [color]/[setColor] - alpha lives in the top
- * byte (`0xAARRGGBB`), so this covers "any color" *and* transparency.
- *
- * Self-sizing: don't set width/height, they're derived from the other
- * size fields ([squareSize], [barThickness], etc).
- */
+
 class ColorPickerWidget(
     private val palette: List<Int> = defaultPalette
 ) : Widget() {
@@ -31,13 +22,13 @@ class ColorPickerWidget(
     var swatchSize: Float = 12f
     var swatchGap: Float = 3f
 
-    // HSV(A), all 0..1 - the source of truth. `color` is derived from these.
+
     private var hue = 0f
     private var sat = 0f
     private var bri = 1f
     private var alpha = 1f
 
-    /** Current selection as 0xAARRGGBB. */
+    
     val color: Int
         get() {
             val rgb = java.awt.Color.HSBtoRGB(hue, sat, bri)
@@ -45,7 +36,7 @@ class ColorPickerWidget(
             return (a shl 24) or (rgb and 0xFFFFFF)
         }
 
-    /** Sets the picker's state from an ARGB int without firing [onColorChanged]. */
+    
     fun setColor(argb: Int) {
         val a = (argb ushr 24) and 0xFF
         val r = (argb shr 16) and 0xFF
@@ -79,13 +70,13 @@ class ColorPickerWidget(
             0xFFBA68C8.toInt(), 0xFFF06292.toInt(), 0xFFA1887F.toInt()
         )
 
-        /** Rounds a 0..1 value to a fixed step count, keeping SV/alpha texture cache sizes bounded during drags. */
+        
         private fun quantize(v: Float, steps: Int): Float = (v * steps).roundToInt() / steps.toFloat()
     }
 
-    // ------------------------------------------------------------------
-    // layout (self-sizing)
-    // ------------------------------------------------------------------
+
+
+
 
     private val totalWidth: Float
         get() = squareSize + gap + barThickness + gap + previewSize
@@ -108,9 +99,9 @@ class ColorPickerWidget(
     private val alphaBarY get() = globalY() + squareSize + gap
     private val swatchesY get() = alphaBarY + barThickness + gap
 
-    // ------------------------------------------------------------------
-    // render
-    // ------------------------------------------------------------------
+
+
+
 
     override fun render(ctx: RenderContext) {
 
@@ -140,8 +131,8 @@ class ColorPickerWidget(
         val w = squareSize.toInt().coerceAtLeast(1)
         val h = squareSize.toInt().coerceAtLeast(1)
 
-        // Quantize hue so a drag across the hue bar doesn't generate a
-        // brand-new full-square raster on every single pixel of movement.
+
+
         val qHue = quantize(hue, 60)
         val key = "sv:$w:$h:$qHue"
 
@@ -153,7 +144,7 @@ class ColorPickerWidget(
 
         squareTexture?.let { ctx.scope.drawTexture(it, squareX, squareY, squareSize, squareSize, 1f) }
 
-        // selection marker
+
         val markerX = squareX + sat * squareSize
         val markerY = squareY + (1f - bri) * squareSize
         ctx.scope.drawOutline(markerX - 3f, markerY - 3f, 6f, 6f, 0xFFFFFFFF.toInt(), 1.5f)
@@ -166,7 +157,7 @@ class ColorPickerWidget(
         val h = squareSize.toInt().coerceAtLeast(1)
 
         if (hueTexture == null) {
-            // constant regardless of state - built once and reused forever
+
             hueTexture = SvgTextureManager.getSvgTexture("huebar:$w:$h", SvgBuilder.hueBarVertical(w, h), w, h)
         }
 
@@ -223,9 +214,9 @@ class ColorPickerWidget(
         }
     }
 
-    // ------------------------------------------------------------------
-    // input
-    // ------------------------------------------------------------------
+
+
+
 
     override fun onEvent(event: InputEvent): Boolean {
         when (event) {

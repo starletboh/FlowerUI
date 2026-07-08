@@ -12,7 +12,7 @@ object AboutCommand {
         dispatcher.register(
             ClientCommandManager.literal("flowerui:about")
                 .executes { context ->
-                    // TODO
+
 
                         FlowerUI.open(AboutScreen())
                     1

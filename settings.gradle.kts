@@ -7,27 +7,22 @@ pluginManagement {
         gradlePluginPortal()
         mavenCentral()
     }
-    plugins {
-        id("net.fabricmc.fabric-loom-remap") version providers.gradleProperty("loom_version")
-    }
+    // CRITICAL: Left empty so subprojects are free to apply either
+    // "net.fabricmc.fabric-loom" OR "net.fabricmc.fabric-loom-remap"
+    // directly inside their own build.gradle.kts files.
+    plugins {}
 }
 
 rootProject.name = "FlowerUI"
 
+// Include your shared base module
 include(":common")
 
+// Cleaned single loop that dynamically registers folders under /versions
 file("versions").listFiles()
     ?.filter { it.isDirectory }
     ?.forEach { dir ->
-        include(":versions:${dir.name}")
-        project(":versions:${dir.name}").projectDir = dir
-    }
-
-include(":common")
-
-file("versions").listFiles()
-    ?.filter { it.isDirectory }
-    ?.forEach { dir ->
-        include(":versions:${dir.name}")
-        project(":versions:${dir.name}").projectDir = dir
+        val projectPath = ":versions:${dir.name}"
+        include(projectPath)
+        project(projectPath).projectDir = dir
     }

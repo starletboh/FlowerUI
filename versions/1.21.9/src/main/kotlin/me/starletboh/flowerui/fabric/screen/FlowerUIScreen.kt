@@ -45,14 +45,14 @@ class FlowerUIScreen(
         screen.root.width = width.toFloat()
         screen.root.height = height.toFloat()
 
-        screen.root.applyLayout()   // ONLY HERE
+        screen.root.applyLayout()
 
         screen.render(ctx)
     }
     override fun mouseClicked(click: Click, doubled: Boolean): Boolean {
         val sx = click.x()
         val sy = click.y()
-//        println("clicked: $sx $sy")
+
         InputRouter.handle(
             MouseEvent.Click(sx, sy, click.button())
         )

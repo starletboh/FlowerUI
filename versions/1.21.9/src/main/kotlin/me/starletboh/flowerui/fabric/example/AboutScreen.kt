@@ -19,14 +19,7 @@ import net.minecraft.util.Util
 import java.net.URI
 import javax.swing.text.html.ImageView
 
-/**
- * Documentation / credits screen: Modrinth, GitHub and Discord link
- * buttons pinned to the top-right corner, plus a scrollable write-up of
- * what FlowerUI offers.
- *
- * NOTE: swap the placeholder URLs in [linkButton] calls below for your
- * project's real Modrinth/GitHub/Discord links.
- */
+
 class AboutScreen : FlowerScreen() {
 
     override val themeContext =
@@ -113,7 +106,7 @@ class AboutScreen : FlowerScreen() {
         root.add(docsPanel)
         root.add(linksRow)
         root.add(logoImage)
-//        ExampleScreens.addShuffleButton(root)
+
     }
 
     override fun render(ctx: RenderContext) {

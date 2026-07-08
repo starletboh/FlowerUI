@@ -9,18 +9,7 @@ import me.starletboh.flowerui.ui.components.Component
 import me.starletboh.flowerui.ui.components.Overlay
 import me.starletboh.flowerui.ui.render.RenderContext
 
-/**
- * A select dropdown.
- *
- * The open item list is rendered via [Overlay] (see [me.starletboh.flowerui.ui.components.RootComponent])
- * instead of as a normal child draw: rendering it in place, below the
- * collapsed box, meant it got clipped away by any ancestor panel with
- * `clipChildren = true` (the default), *and* was outside the widget's own
- * `contains()` bounding box - which `hitTestDeep` requires before it'll even
- * look at a component - so clicking an item literally could not reach this
- * widget through the normal tree hit-test. The overlay layer draws on top,
- * unclipped, and gets first refusal on hit-testing.
- */
+
 class DropdownWidget<T> : Widget(), Overlay {
 
     var items: List<T> = emptyList()
@@ -47,13 +36,13 @@ class DropdownWidget<T> : Widget(), Overlay {
     private var rowCacheKey: String? = null
     private var rowTexture: Any? = null
 
-    // ------------------------------------------------------------------
-    // collapsed box (normal, clipped-like-everything-else render)
-    // ------------------------------------------------------------------
+
+
+
 
     override fun render(ctx: RenderContext) {
 
-        // auto-close if focus moved elsewhere (e.g. user clicked away)
+
         if (isOpen && InputRouter.currentFocus !== this) {
             closeMenu()
         }
@@ -77,7 +66,7 @@ class DropdownWidget<T> : Widget(), Overlay {
         val textY = globalY() + (height - ctx.scope.measureTextHeight(label)) / 2f
         ctx.scope.drawText(label, globalX() + 6f, textY, ctx.theme.colors.textPrimary, 1f)
 
-        // small caret to signal it's a dropdown
+
         val caretSize = 5f
         val caretX = globalX() + width - caretSize - 8f
         val caretY = globalY() + height / 2f - caretSize / 4f
@@ -86,10 +75,10 @@ class DropdownWidget<T> : Widget(), Overlay {
         renderChildren(ctx)
     }
 
-    // ------------------------------------------------------------------
-    // open item list (Overlay - drawn/hit-tested by RootComponent, on top,
-    // unclipped by any ancestor)
-    // ------------------------------------------------------------------
+
+
+
+
 
     override fun renderOverlay(ctx: RenderContext) {
         if (!isOpen || items.isEmpty()) return
@@ -141,9 +130,9 @@ class DropdownWidget<T> : Widget(), Overlay {
         return -1
     }
 
-    // ------------------------------------------------------------------
-    // input
-    // ------------------------------------------------------------------
+
+
+
 
     override fun onEvent(event: InputEvent): Boolean {
         when (event) {
@@ -162,7 +151,7 @@ class DropdownWidget<T> : Widget(), Overlay {
                     return true
                 }
 
-                // open: overlayHitTest routes item-row clicks here too, so check those first
+
                 val idx = rowIndexAt(event.x, event.y)
                 if (idx >= 0) {
                     selectedIndex = idx
@@ -173,7 +162,7 @@ class DropdownWidget<T> : Widget(), Overlay {
                 }
 
                 if (contains(event.x, event.y)) {
-                    // clicked the box again while open -> collapse
+
                     closeMenu()
                     event.consume()
                     return true

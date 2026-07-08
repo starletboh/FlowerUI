@@ -3,10 +3,7 @@ package me.starletboh.flowerui.ui.widgets
 import me.starletboh.flowerui.ui.layout.Align
 import me.starletboh.flowerui.ui.render.RenderContext
 
-/**
- * Simple text label widget. Sizes itself to the measured text unless a
- * fixed [width]/[height] has already been assigned.
- */
+
 class TextWidget(var text: String = "") : Widget() {
 
     var color: Int? = null
@@ -18,8 +15,8 @@ class TextWidget(var text: String = "") : Widget() {
         val textWidth = ctx.scope.measureTextWidth(text, scale)
         val textHeight = ctx.scope.measureTextHeight(text, scale)
 
-        // Auto-size to the measured text unless the caller has already
-        // given this label an explicit width/height.
+
+
         if (width == 0f) width = textWidth
         if (height == 0f) height = textHeight
 

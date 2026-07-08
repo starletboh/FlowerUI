@@ -13,11 +13,7 @@ import me.starletboh.flowerui.ui.widgets.PanelWidget
 import me.starletboh.flowerui.ui.widgets.TextInputWidget
 import me.starletboh.flowerui.ui.widgets.TextWidget
 
-/**
- * Demonstrates ColorPickerWidget paired with a live "current value" readout
- * and a typeable hex field that feeds back into the picker - covers both
- * directions: picker -> text, and text -> picker.
- */
+
 class ColorPickerScreen : FlowerScreen() {
 
     override val themeContext =
@@ -30,11 +26,11 @@ class ColorPickerScreen : FlowerScreen() {
 
     override fun build(root: RootComponent) {
 
-        // NOTE: fixed size rather than left at 0/0 to auto-measure -
-        // TextWidget and ColorPickerWidget currently determine their own
-        // width/height inside render() (text measurement, swatch layout)
-        // rather than during the measure pass, so an auto-sized parent
-        // would be a frame late resolving to the right size on first open.
+
+
+
+
+
         panel = PanelWidget().apply {
             width = 200f
             height = 240f
@@ -50,9 +46,9 @@ class ColorPickerScreen : FlowerScreen() {
         }
         panel.add(picker)
 
-        // Live "current value" display - ARGB hex + alpha as a percentage,
-        // so both the color and its transparency are visible as text, not
-        // just as a swatch.
+
+
+
         valueLabel = TextWidget("").apply { height = 10f }
         panel.add(valueLabel)
 
@@ -77,7 +73,7 @@ class ColorPickerScreen : FlowerScreen() {
         valueLabel.text = String.format("#%08X  (alpha %d%%)", argb, alphaPct)
     }
 
-    /** Parses "#RRGGBB" (assumed fully opaque) or "#AARRGGBB" typed into [hexInput]. */
+    
     private fun applyHex(raw: String) {
         val cleaned = raw.removePrefix("#").trim()
         val value = cleaned.toLongOrNull(16) ?: return
