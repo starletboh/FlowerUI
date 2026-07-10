@@ -1,7 +1,5 @@
 jdk:
-
-  * openjdk21
+  - openjdk21
 
 install:
-
-  * ./gradlew :common:publishToMavenLocal publishAllVersions
+  - bash ./jitpack-build.sh
