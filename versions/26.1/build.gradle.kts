@@ -6,7 +6,7 @@ plugins {
     id("org.jetbrains.kotlin.jvm") version "2.4.0"
     id("com.gradleup.shadow") version "8.3.0"
 }
-version = "1.0.0+mc26.1"
+version = "1.0.0-mc26.1"
 val shadowImpl by configurations.creating
 repositories {
     mavenCentral()
