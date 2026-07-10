@@ -1,0 +1,9 @@
+/versions/1.21.8/
+
+run/
+**/run/
+.gradle/
+build/
+**/build/
+.idea/
+*.iml

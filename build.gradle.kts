@@ -7,7 +7,7 @@ evaluationDependsOnChildren()
 
 allprojects {
     group = "me.starletboh.flowerui"
-    version = "1.0.0"
+//    version = "1.0.0"okay
 
     repositories {
         mavenCentral()
@@ -15,7 +15,13 @@ allprojects {
         maven("https://jitpack.io")
     }
 }
-
+tasks.register("publishAllVersions") {
+    dependsOn(
+        subprojects
+            .filter { it.path.startsWith(":versions:") }
+            .map { "${it.path}:publishToMavenLocal" }
+    )
+}
 tasks.register("buildAll") {
     group = "build"
 

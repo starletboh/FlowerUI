@@ -5,7 +5,7 @@ plugins {
     id("com.gradleup.shadow") version "8.3.0"
 }
 val shadowImpl by configurations.creating
-
+version = "1.0.0+mc1.21.9"
 tasks.processResources {
     inputs.property("version", project.version)
     filesMatching("fabric.mod.json") {
@@ -62,4 +62,12 @@ tasks.remapJar {
     dependsOn(tasks.shadowJar)
     inputFile.set(tasks.shadowJar.get().archiveFile)
     archiveClassifier.set("")
+}
+publishing {
+    publications {
+        register<MavenPublication>("mavenJava") {
+            artifactId = "FlowerUI-Fabric"
+            artifact(tasks.remapJar)
+        }
+    }
 }

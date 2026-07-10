@@ -1,5 +1,7 @@
 jdk:
-  - openjdk21
+
+  * openjdk21
 
 install:
-  - ./gradlew :versions:1.21.11:publishToMavenLocal
+
+  * ./gradlew :common:publishToMavenLocal publishAllVersions
