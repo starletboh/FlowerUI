@@ -1,74 +1,79 @@
-# 🌸 FlowerUI
-
-**FlowerUI** is a lightweight, themeable UI framework for Fabric mods, architected specifically for Kotlin.
-
-FlowerUI streamlines the development of Minecraft interfaces by replacing boilerplate-heavy manual rendering with a modular, high-performance widget system. It provides a comprehensive suite of automatic layouts, runtime theming, and platform-agnostic abstractions, allowing developers to focus on feature implementation rather than rendering mechanics.
-
----
-
-## Features
-
-* **Kotlin-First API:** Clean, idiomatic DSL for declarative UI construction.
-* **Automatic Layout Engine:** Flexible positioning using `RowLayout`, `ColumnLayout`, `GridLayout`, and `FlexLayout`.
-* **Runtime Theming:** Dynamic, swappable visual styles.
-* **SVG Rendering Backend:** Scalable graphics with hardware-accelerated texture caching.
-* **Comprehensive Widget Library:** Ready-to-use components for complex interfaces.
-* **Event Routing:** Built-in handling for mouse, keyboard, and clipboard interactions.
-* **Extensible Architecture:** Platform-agnostic core with a clean separation of concerns.
-
----
-
 ## Installation
 
-FlowerUI is distributed via the **JitPack** repository.
+FlowerUI is distributed through the **JitPack** repository.
 
-### Kotlin DSL
+FlowerUI is split into two artifacts:
+
+* **FlowerUI-common** — The platform-independent UI framework containing widgets, layouts, themes, animations, and rendering abstractions.
+* **FlowerUI-Fabric** — The Fabric-specific implementation providing Minecraft integration, rendering hooks, and platform features.
+
+---
+
+### Adding the Repository
 
 Configure your `settings.gradle.kts`:
 
 ```kotlin
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+
     repositories {
         mavenCentral()
-        maven { url = uri("https://jitpack.io") }
+        maven("https://jitpack.io")
     }
 }
-
 ```
 
-Add the dependency to your `build.gradle.kts`:
+---
+
+## Common Module
+
+Add FlowerUI-common to your shared/common module:
+
+### Kotlin DSL
 
 ```kotlin
 dependencies {
-    implementation("com.github.starletboh:FlowerUI:master-SNAPSHOT")
+    implementation("com.github.starletboh:FlowerUI-common:1.0.0")
 }
-
 ```
 
 ### Groovy
 
-Configure your `settings.gradle`:
-
-```groovy
-dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-    repositories {
-        mavenCentral()
-        maven { url 'https://jitpack.io' }
-    }
-}
-
-```
-
-Add the dependency to your `build.gradle`:
-
 ```groovy
 dependencies {
-    implementation 'com.github.starletboh:FlowerUI:master-SNAPSHOT'
+    implementation 'com.github.starletboh:FlowerUI-common:1.0.0'
 }
-
 ```
+
+---
+
+## Fabric Module
+
+Add the matching FlowerUI-Fabric version to your Minecraft/Fabric module.
+
+Example:
+
+```kotlin
+dependencies {
+    modImplementation("com.github.starletboh:FlowerUI-Fabric:1.0.0-mc1.21.9")
+}
+```
+
+For Minecraft 26.1:
+
+```kotlin
+dependencies {
+    modImplementation("com.github.starletboh:FlowerUI-Fabric:1.0.0-mc26.1")
+}
+```
+
+The Fabric artifact provides:
+
+* Minecraft screen integration
+* Fabric event handling
+* Platform-specific rendering
+* Loader integration
 
 ---
 
@@ -83,56 +88,3 @@ dependencies {
 ---
 
 ## Implementation Example
-
-```kotlin
-class ExampleScreen : FlowerScreen() {
-
-    override val themeContext = ThemeContext(ThemeRegistry.getOrFallback("catppuccin_mocha"))
-
-    override fun build(root: RootComponent) {
-        val panel = PanelWidget().apply {
-            width = 220f
-            height = 120f
-            layout = ColumnLayout()
-            layoutBox = LayoutBox(padding = 12f, gap = 8f)
-        }
-
-        panel.add(TextWidget("Hello FlowerUI"))
-        panel.add(ButtonWidget().apply {
-            width = 100f
-            height = 20f
-            text = "Click me"
-        })
-
-        root.add(panel)
-    }
-
-    override fun render(ctx: RenderContext) {
-        root.applyLayout()
-        root.render(ctx)
-    }
-}
-
-```
-
-Launch the interface via: `FlowerUI.open(ExampleScreen())`
-
----
-
-## Documentation & Support
-
-For comprehensive guides, API references, and advanced implementation details, consult the [GitHub Wiki](https://github.com/starletboh/FlowerUI/wiki).
-
----
-
-## License
-
-This project is licensed under the **GNU General Public License v3.0**. See the [LICENSE](https://www.gnu.org/licenses/gpl-3.0.txt) file for further information.
-
----
-
-## Contributing
-
-Contributions are invited. Please submit pull requests or open issues for feature requests and bug reports.
-
-Would you like me to refine the language further for a specific audience, or are there additional sections you would like to include?
