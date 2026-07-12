@@ -34,7 +34,7 @@ Add FlowerUI-common to your shared/common module:
 
 ```kotlin
 dependencies {
-    implementation("com.github.starletboh:FlowerUI-common:1.0.0")
+    implementation("com.github.starletboh:FlowerUI:1.0.0") //(KEEP IN MIND THIS IS FOR THE 1.0.0 VERSION CHANGE THIS BASED ON UPDATES!!)
 }
 ```
 
@@ -42,7 +42,7 @@ dependencies {
 
 ```groovy
 dependencies {
-    implementation 'com.github.starletboh:FlowerUI-common:1.0.0'
+    implementation 'com.github.starletboh:FlowerUI:1.0.0' //(KEEP IN MIND THIS IS FOR THE 1.0.0 VERSION CHANGE THIS BASED ON UPDATES!!)
 }
 ```
 
@@ -56,7 +56,7 @@ Example:
 
 ```kotlin
 dependencies {
-    modImplementation("com.github.starletboh:FlowerUI-Fabric:1.0.0-mc1.21.9")
+    modImplementation("com.github.starletboh:FlowerUI:1.0.0-mc26.1") // CHANGE MC VERSION OR CODE VERSION AS NEEDED!
 }
 ```
 
@@ -64,7 +64,7 @@ For Minecraft 26.1:
 
 ```kotlin
 dependencies {
-    modImplementation("com.github.starletboh:FlowerUI-Fabric:1.0.0-mc26.1")
+    modImplementation("com.github.starletboh:FlowerUI:1.0.0-mc26.1") // CHANGE MC VERSION OR CODE VERSION AS NEEDED!
 }
 ```
 
