@@ -1,19 +1,20 @@
-package me.starletboh.flowerui.fabric.example
+package me.starletboh.flowerui.examples
 
+import me.starletboh.flowerui.ref.IdentifierRef
+import me.starletboh.flowerui.ref.PlatformServices
 import me.starletboh.flowerui.theme.ThemeContext
 import me.starletboh.flowerui.theme.ThemeRegistry
 import me.starletboh.flowerui.ui.FlowerScreen
 import me.starletboh.flowerui.ui.components.RootComponent
 import me.starletboh.flowerui.ui.layout.Align
-import me.starletboh.flowerui.ui.layout.ColumnLayout
-import me.starletboh.flowerui.ui.layout.GridLayout
+
 import me.starletboh.flowerui.ui.layout.LayoutBox
 import me.starletboh.flowerui.ui.layout.RowLayout
 import me.starletboh.flowerui.ui.widgets.ButtonWidget
 import me.starletboh.flowerui.ui.render.RenderContext
 import me.starletboh.flowerui.ui.widgets.PanelWidget
-import me.starletboh.flowerui.ui.widgets.ScrollContainer
-import net.minecraft.util.Identifier
+
+
 class ExampleScreen : FlowerScreen() {
 
     override val themeContext =
@@ -33,7 +34,7 @@ class ExampleScreen : FlowerScreen() {
             )
         }
 
-        fun iconButton(icon: Identifier, action: () -> Unit): ButtonWidget {
+        fun iconButton(icon: Any, action: () -> Unit): ButtonWidget {
             return ButtonWidget().apply {
                 width = 10f
                 height = 10f
@@ -45,9 +46,9 @@ class ExampleScreen : FlowerScreen() {
             }
         }
 
-        val modrinth = Identifier.of("flowerui", "icons/modrinth.png")
-        val discord = Identifier.of("flowerui", "icons/discord.png")
-        val github = Identifier.of("flowerui", "icons/github.png")
+        val modrinth = PlatformServices.identifier.of("flowerui", "icons/modrinth.png")
+        val discord = PlatformServices.identifier.of("flowerui", "icons/discord.png")
+        val github = PlatformServices.identifier.of("flowerui", "icons/github.png")
 
         panel.add(iconButton(modrinth) { println("Modrinth") })
         panel.add(iconButton(discord) { println("Discord") })

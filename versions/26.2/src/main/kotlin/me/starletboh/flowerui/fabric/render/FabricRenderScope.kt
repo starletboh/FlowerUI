@@ -1,28 +1,31 @@
 package me.starletboh.flowerui.fabric.render
 
-
+import me.starletboh.flowerui.font.FontHandle
 import me.starletboh.flowerui.ui.render.RenderScope
-import net.minecraft.client.MinecraftClient
-import net.minecraft.client.gl.RenderPipelines
-import net.minecraft.client.gui.DrawContext
-import net.minecraft.util.Identifier
+import net.minecraft.client.Minecraft
+import net.minecraft.client.gui.GuiGraphicsExtractor
+import net.minecraft.client.renderer.RenderPipelines
+import net.minecraft.resources.Identifier
+
+
 import org.joml.Matrix3x2fStack
+import java.awt.Font
 
 class FabricRenderScope(
-    private val ctx: DrawContext
+    private val ctx: GuiGraphicsExtractor
 ) : RenderScope {
 
     private val matrix: Matrix3x2fStack
-        get() = ctx.matrices
-
+        get() = ctx.pose()
+    private val mc = Minecraft.getInstance()
     override fun push() { matrix.pushMatrix()}
 
     override fun pop() { matrix.popMatrix()}
     override fun getScreenWidth(): Float =
-        MinecraftClient.getInstance().window.scaledWidth.toFloat()
+        mc.window.guiScaledWidth.toFloat()
 
     override fun getScreenHeight(): Float =
-        MinecraftClient.getInstance().window.scaledHeight.toFloat()
+        mc.window.guiScaledHeight.toFloat()
     override fun translate(x: Float, y: Float) {
         matrix.translate(x, y)
     }
@@ -36,13 +39,6 @@ class FabricRenderScope(
     }
 
     override fun pushClip(x: Float, y: Float, width: Float, height: Float) {
-
-
-
-
-
-
-
 
 
         ctx.enableScissor(
@@ -75,7 +71,7 @@ class FabricRenderScope(
     ) {
         val id = texture as Identifier
 
-        ctx.drawTexture(
+        ctx.blit(
             RenderPipelines.GUI_TEXTURED,
             id,
             x.toInt(),
@@ -113,8 +109,8 @@ class FabricRenderScope(
         color: Int,
         scale: Float
     ) {
-        ctx.drawText(
-            MinecraftClient.getInstance().textRenderer,
+        ctx.text(
+            mc.font,
             text,
             x.toInt(),
             y.toInt(),
@@ -124,11 +120,11 @@ class FabricRenderScope(
     }
 
     override fun measureTextHeight(text: String, scale: Float): Float {
-        return MinecraftClient.getInstance().textRenderer.fontHeight * scale
+        return mc.font.lineHeight * scale
     }
 
     override fun measureTextWidth(text: String, scale: Float): Float {
-        return MinecraftClient.getInstance().textRenderer.getWidth(text).toFloat()
+        return mc.font.width(text).toFloat()
     }
 
 

@@ -29,50 +29,42 @@ class CheckboxWidget : Widget() {
             else -> boxColor ?: ctx.theme.colors.surface
         }
 
-        val key = "$width:$height:$fill:$radius:$checked:$hovered"
+        val key = "$width:$height:$fill:$radius:$borderColor:$checked:$hovered"
+
         if (key != textureCacheKey) {
+
             val svg = SvgBuilder.roundedRect(
                 width.toInt().coerceAtLeast(1),
                 height.toInt().coerceAtLeast(1),
                 radius,
-                fill.toHex()
+                fill.toHex(),
+                (borderColor ?: ctx.theme.colors.border).toHex(),
+                1f
             )
+
             texture = SvgTextureManager.getSvgTexture(
                 id = key,
                 svg = svg,
                 width = width.toInt().coerceAtLeast(1),
                 height = height.toInt().coerceAtLeast(1)
             )
+
             textureCacheKey = key
         }
 
         texture?.let {
-            ctx.scope.drawTexture(it, globalX(), globalY(), width, height, 1f)
-        }
-
-        if (checked) {
-
-
-
-            val thickness = (width * 0.14f).coerceAtLeast(1f)
-            ctx.scope.drawOutline(
-                globalX() + width * 0.2f,
-                globalY() + height * 0.2f,
-                width * 0.6f,
-                height * 0.6f,
-                ctx.theme.colors.background,
-                thickness
-            )
-        } else {
-            ctx.scope.drawOutline(
-                globalX(), globalY(), width, height,
-                borderColor ?: ctx.theme.colors.border
+            ctx.scope.drawTexture(
+                it,
+                globalX(),
+                globalY(),
+                width,
+                height,
+                1f
             )
         }
 
         renderChildren(ctx)
     }
-
     override fun onEvent(event: InputEvent): Boolean {
         when (event) {
 

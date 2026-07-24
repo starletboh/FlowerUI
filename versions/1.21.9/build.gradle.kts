@@ -5,11 +5,22 @@ plugins {
     id("com.gradleup.shadow") version "8.3.0"
 }
 val shadowImpl by configurations.creating
-version = "1.0.0-mc1.21.9"
+version = "1.0.1-mc1.21.9"
 tasks.processResources {
     inputs.property("version", project.version)
+    inputs.property("minecraft_version", project.properties["minecraft_version"])
+    inputs.property("loader_version", project.properties["loader_version"])
+    inputs.property("kotlin_loader_version", project.properties["kotlin_loader_version"])
+//    inputs.property("flower_ui_version", project.properties["flower_ui_version"])
+    filteringCharset = "UTF-8"
+
     filesMatching("fabric.mod.json") {
-        expand("version" to project.version)
+        expand("version" to project.version, "loader_version" to project.properties["loader_version"] as String,
+            "minecraft_version" to project.properties["minecraft_version"] as String,
+//            "loader_version" to project.property("loader_version")
+            "kotlin_loader_version" to project.properties["kotlin_loader_version"] as String,
+//           "flower_ui_version" to project.properties["flower_ui_version"] as String
+        )
     }
 }
 

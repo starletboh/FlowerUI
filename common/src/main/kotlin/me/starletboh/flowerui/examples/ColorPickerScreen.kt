@@ -1,4 +1,4 @@
-package me.starletboh.flowerui.fabric.example
+package me.starletboh.flowerui.examples
 
 import me.starletboh.flowerui.theme.ThemeContext
 import me.starletboh.flowerui.theme.ThemeRegistry

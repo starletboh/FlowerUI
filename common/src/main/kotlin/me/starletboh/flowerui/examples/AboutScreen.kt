@@ -1,5 +1,6 @@
-package me.starletboh.flowerui.fabric.example
+package me.starletboh.flowerui.examples
 
+import me.starletboh.flowerui.ref.PlatformServices
 import me.starletboh.flowerui.theme.ThemeContext
 import me.starletboh.flowerui.theme.ThemeRegistry
 import me.starletboh.flowerui.ui.FlowerScreen
@@ -14,11 +15,9 @@ import me.starletboh.flowerui.ui.widgets.ImageWidget
 import me.starletboh.flowerui.ui.widgets.PanelWidget
 import me.starletboh.flowerui.ui.widgets.ScrollContainer
 import me.starletboh.flowerui.ui.widgets.TextWidget
-import net.minecraft.resources.Identifier
-import net.minecraft.util.Util
 
 import java.net.URI
-import javax.swing.text.html.ImageView
+
 
 
 class AboutScreen : FlowerScreen() {
@@ -56,7 +55,7 @@ class AboutScreen : FlowerScreen() {
     override fun build(root: RootComponent) {
         logoImage = ImageWidget().apply {
 
-            texture=Identifier.fromNamespaceAndPath("flowerui", "icons/minecraft_title.png")
+            texture=PlatformServices.identifier.of("flowerui", "icons/minecraft_title.png")
             width = 200f
             height = 40f
         }
@@ -66,20 +65,23 @@ class AboutScreen : FlowerScreen() {
             layoutBox = LayoutBox(gap = 6f, padding = 4f, alignY = Align.CENTER)
         }
 
-        fun linkButton(icon: Identifier,url: String): ButtonWidget {
+        fun linkButton(icon: Any, url: String): ButtonWidget {
             return ButtonWidget().apply {
                 width = 18f
                 height = 18f
                 radius = 9
                 iconTexture = icon
                 iconSize = 14f
-                onClick = { Util.getPlatform().openUri(URI.create(url)) }
+                onClick = { PlatformServices.utils.getOperatingSystemOpenURL(url) }
+
+
+
             }
         }
 
-        linksRow.add(linkButton(Identifier.fromNamespaceAndPath("flowerui", "icons/modrinth.png"), "https://modrinth.com/mod/flowerui"))
-        linksRow.add(linkButton(Identifier.fromNamespaceAndPath("flowerui", "icons/github.png"), "https://github.com/starletboh/FlowerUI"))
-        linksRow.add(linkButton(Identifier.fromNamespaceAndPath("flowerui", "icons/discord.png"), "https://dsc.gg/lunartweaks"))
+        linksRow.add(linkButton(PlatformServices.identifier.of("flowerui", "icons/modrinth.png"), "https://modrinth.com/mod/flowerui"))
+        linksRow.add(linkButton(PlatformServices.identifier.of("flowerui", "icons/github.png"), "https://github.com/starletboh/FlowerUI"))
+        linksRow.add(linkButton(PlatformServices.identifier.of("flowerui", "icons/discord.png"), "https://dsc.gg/lunartweaks"))
 
         docsPanel = PanelWidget().apply {
             width = 400f

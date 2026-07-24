@@ -46,7 +46,8 @@ tasks.register("buildAll") {
 
                     if (jarFile != null && jarFile.exists()) {
                         val finalComponentVersion = p.providers.gradleProperty("mod_version").orNull ?: p.version.toString()
-                        val targetFile = java.io.File(out, "${p.name}-$finalComponentVersion.jar")
+                        val project_name = p.providers.gradleProperty("archives_base_name").orNull ?: "flowerui"
+                        val targetFile = java.io.File(out, "$project_name-$finalComponentVersion-mc${p.name}.jar")
 
                         jarFile.copyTo(targetFile, overwrite = true)
                         println("Successfully copied built mod jar from ${p.name} ($targetTaskName): ${targetFile.name}")

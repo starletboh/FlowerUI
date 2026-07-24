@@ -22,14 +22,15 @@ import me.starletboh.flowerui.theme.BuiltInThemes
 import me.starletboh.flowerui.ui.registry.WidgetRegistry
 
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents
-import net.minecraft.client.MinecraftClient
+import net.minecraft.client.Minecraft
+
 import java.io.File
 
 object FlowerUIFabricImpl : FlowerUIPlatform {
 
     private var initialized = false
     private var openedDemo = false
-    private val mc = MinecraftClient.getInstance()
+    private val mc = Minecraft.getInstance()
     fun init() {
 
         val configFile = File("config/flowerui.json")
@@ -45,7 +46,7 @@ object FlowerUIFabricImpl : FlowerUIPlatform {
         ModCommands.register()
         ClientTickEvents.END_CLIENT_TICK.register {
 
-            val mc = MinecraftClient.getInstance()
+
 
             if (!initialized) {
 
@@ -67,13 +68,13 @@ object FlowerUIFabricImpl : FlowerUIPlatform {
     }
     override fun close() {
         mc.execute {
-            mc.setScreen(null)
+            mc.gui.setScreen(null)
         }
     }
     override fun open(screen: me.starletboh.flowerui.ui.FlowerScreen) {
 
         mc.execute {
-        mc.setScreen(
+        mc.gui.setScreen(
             FlowerUIScreen(screen)
         )}
     }

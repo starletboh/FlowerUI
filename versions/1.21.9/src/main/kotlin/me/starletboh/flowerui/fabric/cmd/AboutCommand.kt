@@ -2,7 +2,8 @@ package me.starletboh.flowerui.fabric.cmd
 
 import com.mojang.brigadier.CommandDispatcher
 import me.starletboh.flowerui.api.FlowerUI
-import me.starletboh.flowerui.fabric.example.AboutScreen
+import me.starletboh.flowerui.examples.AboutScreen
+
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager
 import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource
 

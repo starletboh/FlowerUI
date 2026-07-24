@@ -12,6 +12,8 @@ import me.starletboh.flowerui.fabric.cmd.ModCommands
 
 import me.starletboh.flowerui.fabric.graphics.FabricTextureBackend
 import me.starletboh.flowerui.fabric.ref.MinecraftClipboard
+import me.starletboh.flowerui.fabric.ref.MinecraftIdentifier
+import me.starletboh.flowerui.fabric.ref.MinecraftUtil
 import me.starletboh.flowerui.fabric.screen.FlowerUIScreen
 import me.starletboh.flowerui.graphics.backend.GraphicsBackend
 import me.starletboh.flowerui.graphics.svg.SvgTextureManager
@@ -38,6 +40,9 @@ object FlowerUIFabricImpl : FlowerUIPlatform {
 
         FlowerUI.init(this)
         PlatformServices.clipboard = MinecraftClipboard()
+        PlatformServices.identifier = MinecraftIdentifier()
+        PlatformServices.textureBackend = FabricTextureBackend()
+        PlatformServices.utils = MinecraftUtil()
         ModCommands.register()
         ClientTickEvents.END_CLIENT_TICK.register {
 

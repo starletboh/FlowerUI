@@ -12,7 +12,7 @@ class FabricTextureBackend : TextureBackend {
     override fun registerTexture(id: String, image: BufferedImage): Identifier {
         val nativeImage = convert(image)
         val texture = DynamicTexture(id::toString, nativeImage)
-        
+
         // Split by ':' if present, otherwise default to "flowerui"
         val identifier = if (id.contains(":")) {
             val parts = id.split(":", limit = 2)

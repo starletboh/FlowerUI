@@ -20,6 +20,8 @@ class ButtonWidget : Widget() {
     var hoverColor: Int? = null
     var pressedColor: Int? = null
     var textColor: Int? = null
+    var borderColor: Int? = null
+    var borderWidth: Float = 1f
     var iconTexture: Any? = null
     var iconSize: Float = 16f
     var onClick: (() -> Unit)? = null
@@ -46,7 +48,7 @@ class ButtonWidget : Widget() {
             hoverBackground = hoverColor ?: base.hoverBackground,
             pressedBackground = pressedColor ?: base.pressedBackground,
             textColor = textColor ?: base.textColor,
-            borderColor = base.borderColor,
+            borderColor = borderColor ?: base.borderColor,
             radius = radius
         )
     }
@@ -74,7 +76,18 @@ class ButtonWidget : Widget() {
         val svg = buildSvg(style)
 
 
-        val key = textureKey(width, height, style.background, style.hoverBackground, style.pressedBackground, hovered, pressed, radius)
+        val key = textureKey(
+            width,
+            height,
+            style.background,
+            style.hoverBackground,
+            style.pressedBackground,
+            style.borderColor,
+            borderWidth,
+            hovered,
+            pressed,
+            radius
+        )
         if (key != textureCacheKey) {
             texture = SvgTextureManager.getSvgTexture(
                 id = key,
@@ -163,7 +176,9 @@ class ButtonWidget : Widget() {
             width = width.toInt().coerceAtLeast(1),
             height = height.toInt().coerceAtLeast(1),
             radius = style.radius,
-            fill = fill.toHex()
+            fill = fill.toHex(),
+            stroke = style.borderColor?.toHex(),
+            strokeWidth = borderWidth
         )
     }
 

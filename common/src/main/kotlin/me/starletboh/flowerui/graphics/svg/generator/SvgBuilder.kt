@@ -8,20 +8,47 @@ object SvgBuilder {
         radius: Int,
         fill: String
     ): String {
+        return roundedRect(
+            width,
+            height,
+            radius,
+            fill,
+            null,
+            0f
+        )
+    }
+
+
+    fun roundedRect(
+        width: Int,
+        height: Int,
+        radius: Int,
+        fill: String,
+        stroke: String?,
+        strokeWidth: Float
+    ): String {
 
         return """
             <svg xmlns="http://www.w3.org/2000/svg"
                  width="$width"
                  height="$height">
 
-                <rect width="$width"
-                      height="$height"
-                      rx="$radius"
-                      ry="$radius"
-                      fill="$fill"/>
+                <rect 
+                    x="${strokeWidth / 2}"
+                    y="${strokeWidth / 2}"
+                    width="${width - strokeWidth}"
+                    height="${height - strokeWidth}"
+                    rx="$radius"
+                    ry="$radius"
+                    fill="$fill"
+                    ${if (stroke != null)
+            "stroke=\"$stroke\" stroke-width=\"$strokeWidth\""
+        else ""}
+                />
             </svg>
         """.trimIndent()
     }
+
 
     /** Vertical rainbow strip (top = hue 0, bottom = hue 360, wrapping back to red) for a hue picker. */
     fun hueBarVertical(width: Int, height: Int): String {
@@ -44,7 +71,34 @@ object SvgBuilder {
             </svg>
         """.trimIndent()
     }
+    fun roundedOutline(
+        width: Int,
+        height: Int,
+        radius: Int,
+        color: String,
+        strokeWidth: Float
+    ): String {
 
+        return """
+        <svg xmlns="http://www.w3.org/2000/svg"
+             width="$width"
+             height="$height">
+
+            <rect
+                x="${strokeWidth / 2}"
+                y="${strokeWidth / 2}"
+                width="${width - strokeWidth}"
+                height="${height - strokeWidth}"
+                rx="$radius"
+                ry="$radius"
+                fill="none"
+                stroke="$color"
+                stroke-width="$strokeWidth"
+            />
+
+        </svg>
+    """.trimIndent()
+    }
     /**
      * A saturation (left->right, white->hue) / value (top->bottom,
      * transparent->black) square for a given pure [hueHex] (e.g. from

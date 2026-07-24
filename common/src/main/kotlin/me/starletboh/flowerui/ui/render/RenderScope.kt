@@ -1,6 +1,5 @@
 package me.starletboh.flowerui.ui.render
 
-import me.starletboh.flowerui.font.FontHandle
 
 interface RenderScope {
 
