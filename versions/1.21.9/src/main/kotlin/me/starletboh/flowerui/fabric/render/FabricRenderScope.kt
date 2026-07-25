@@ -113,14 +113,22 @@ class FabricRenderScope(
         color: Int,
         scale: Float
     ) {
+        val matrices = ctx.matrices
+
+        matrices.pushMatrix()
+
+        matrices.scale(scale, scale)
+
         ctx.drawText(
             MinecraftClient.getInstance().textRenderer,
             text,
-            x.toInt(),
-            y.toInt(),
+            (x / scale).toInt(),
+            (y / scale).toInt(),
             color,
             false
         )
+
+        matrices.popMatrix()
     }
 
     override fun measureTextHeight(text: String, scale: Float): Float {

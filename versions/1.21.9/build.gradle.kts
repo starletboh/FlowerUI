@@ -5,7 +5,7 @@ plugins {
     id("com.gradleup.shadow") version "8.3.0"
 }
 val shadowImpl by configurations.creating
-version = "1.0.1-mc1.21.9"
+version = "1.0.2-mc1.21.9"
 tasks.processResources {
     inputs.property("version", project.version)
     inputs.property("minecraft_version", project.properties["minecraft_version"])

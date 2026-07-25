@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "me.starletboh.flowerui"
-version = "1.0.1"
+version = "1.0.2"
 
 java {
     toolchain.languageVersion.set(JavaLanguageVersion.of(21))

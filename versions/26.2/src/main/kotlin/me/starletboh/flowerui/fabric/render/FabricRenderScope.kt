@@ -109,6 +109,8 @@ class FabricRenderScope(
         color: Int,
         scale: Float
     ) {
+        matrix.pushMatrix()
+        matrix.translate(scale, scale)
         ctx.text(
             mc.font,
             text,
@@ -117,6 +119,7 @@ class FabricRenderScope(
             color,
             false
         )
+        matrix.popMatrix()
     }
 
     override fun measureTextHeight(text: String, scale: Float): Float {
